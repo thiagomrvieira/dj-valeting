@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
 
-        <h3>CREATE</h3>
+        <h3>New Booking</h3>
         <br>
         
         {{Form::open(array('url' => route('booking.store'), 'method' => 'post'))}}
@@ -44,7 +44,9 @@
             </div>
             
             <button type="submit" class="btn btn-success">Create</button>
-            <a class="btn btn-primary" href="{{route('booking.index')}}" role="button">Back</a>
+            @if (!Auth::guest())
+                <a class="btn btn-primary" href="{{route('booking.index')}}" role="button">Back</a>
+            @endif
         {{ Form::close() }}
 
 

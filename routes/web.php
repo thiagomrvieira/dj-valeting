@@ -28,11 +28,21 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('bookings', [App\Http\Controllers\BookingController::class, 'index'])->name('booking.index');
 Route::get('booking/new', [App\Http\Controllers\BookingController::class, 'create'])->name('booking.create');
 Route::post('booking', [App\Http\Controllers\BookingController::class, 'store'])->name('booking.store');
-Route::get('booking/{booking}/edit', [App\Http\Controllers\BookingController::class, 'edit'])->name('booking.edit');
-Route::put('booking/{booking}', [App\Http\Controllers\BookingController::class, 'update'])->name('booking.update');
-Route::delete('booking/{booking}', [App\Http\Controllers\BookingController::class, 'destroy'])->name('booking.destroy');
 
+
+
+Route::middleware([auth::class])->group(function () {
+    Route::get('/admin', function () {
+        return redirect()->route('booking.index');
+    });
+    Route::get('/bookings', function () {
+        return redirect()->route('booking.index');
+    });
+    Route::get('admin/bookings', [App\Http\Controllers\BookingController::class, 'index'])->name('booking.index');
+    Route::get('admin/booking/{booking}/edit', [App\Http\Controllers\BookingController::class, 'edit'])->name('booking.edit');
+    Route::put('admin/booking/{booking}', [App\Http\Controllers\BookingController::class, 'update'])->name('booking.update');
+    Route::delete('admin/booking/{booking}', [App\Http\Controllers\BookingController::class, 'destroy'])->name('booking.destroy');
+});
 

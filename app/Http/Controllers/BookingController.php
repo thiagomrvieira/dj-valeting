@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use Auth;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -47,8 +48,11 @@ class BookingController extends Controller
 
         Booking::create($request->all());
 
-        return redirect('/booking/new');
-    }
+        if (!Auth::guest()) {
+            return redirect()->route('booking.index');
+        }else{
+            return redirect()->route('booking.create');
+        }    }
 
     /**
      * Display the specified resource.
@@ -92,7 +96,11 @@ class BookingController extends Controller
 
         Booking::updateOrCreate(['id' => $booking->id],$validatedBooking);
 
-        return redirect('/bookings');
+        if (!Auth::guest()) {
+            return redirect()->route('booking.index');
+        }else{
+            return redirect()->route('booking.create');
+        }
 
     }
 
@@ -105,8 +113,7 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
         Booking::findOrFail($booking->id)->delete();
-        return redirect('/bookings');
-
+        return redirect()->route('booking.index');
     }
 
     public function confirm()
