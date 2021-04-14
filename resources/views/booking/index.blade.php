@@ -1,27 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@extends('layouts.app')
 
-    <title>Document</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <style>
-        .create-button{
-            float: right;
-        }
-        .table-content{
-            margin-top: 70px;
-        }
-    </style>
-</head>
-<body>
+@section('content')
 <div class="container">
 
     <h3>INDEX</h3>
@@ -78,33 +57,4 @@
 
    
 </div>
-</body>
-
-<script>
-    
-    $(document).ready(function () {
-        $('.delete-action').click(function (e) {
-            if (confirm('Are you sure?')) {
-                $(this).siblings('form').submit();
-            }
-
-            return false;
-        });
-
-        $('.confirm-action').click(function (e) {
-            var booking = $(this).attr('data-booking');
-
-            $.ajax({
-                type:'POST',
-                url:'/booking/confirm',
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                success:function(data){
-                    alert(data);
-                }
-            });
-        });
-
-    });
-</script>
-</html>
-
+@endsection
