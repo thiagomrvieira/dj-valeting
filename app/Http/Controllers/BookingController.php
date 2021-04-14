@@ -47,7 +47,7 @@ class BookingController extends Controller
 
         Booking::create($request->all());
 
-        return redirect('/booking');
+        return redirect('/booking/new');
     }
 
     /**
@@ -92,7 +92,7 @@ class BookingController extends Controller
 
         Booking::updateOrCreate(['id' => $booking->id],$validatedBooking);
 
-        return redirect('/booking');
+        return redirect('/bookings');
 
     }
 
@@ -105,7 +105,7 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
         Booking::findOrFail($booking->id)->delete();
-        return redirect('/booking');
+        return redirect('/bookings');
 
     }
 
