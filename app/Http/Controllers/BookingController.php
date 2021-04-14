@@ -14,7 +14,8 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        $bookings = Booking::all();
+        return view('booking.index')->with('bookings', $bookings);
     }
 
     /**
@@ -24,7 +25,7 @@ class BookingController extends Controller
      */
     public function create()
     {
-        //
+        return view('booking.create');   
     }
 
     /**
@@ -35,7 +36,18 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'=>'required',
+            'booking_date'=>'required',
+            'flexibility'=>'required',
+            'vehicle_size'=>'required',
+            'contact_number'=>'required',
+            'email_address'=>'required',
+        ]);
+
+        Booking::create($request->all());
+
+        return redirect('/booking');
     }
 
     /**
@@ -57,7 +69,7 @@ class BookingController extends Controller
      */
     public function edit(Booking $booking)
     {
-        //
+        return view('booking.edit')->with('booking', $booking);
     }
 
     /**
@@ -69,7 +81,19 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        //
+        $validatedBooking = $this->validate($request, [
+            'name'=>'required',
+            'booking_date'=>'required',
+            'flexibility'=>'required',
+            'vehicle_size'=>'required',
+            'contact_number'=>'required',
+            'email_address'=>'required',
+        ]);
+
+        Booking::updateOrCreate(['id' => $booking->id],$validatedBooking);
+
+        return redirect('/booking');
+
     }
 
     /**
@@ -80,6 +104,13 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        //
+        Booking::findOrFail($booking->id)->delete();
+        return redirect('/booking');
+
+    }
+
+    public function confirm()
+    {
+        return 1;
     }
 }

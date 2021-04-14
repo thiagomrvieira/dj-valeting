@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('booking.index');
 });
+
+
+Route::resource('/booking', BookingController::class);
+
+Route::post('/booking/confirm', [BookingController::class, 'confirm']);
+
