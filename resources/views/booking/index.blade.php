@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <h3>INDEX</h3>
+    <h3>All Bookings</h3>
     <div class="create-button">
         <a class="btn btn-success" href="{{route('booking.create')}}" role="button">Create</a>
     </div>
