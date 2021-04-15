@@ -25,7 +25,14 @@
             <tbody>
                 @if (isset($bookings))
                     @foreach ($bookings as $booking)
-                        <tr>
+                    @php
+                        $style = '';
+                        if ($booking->booking_confirmed == true) {
+                            $style = "style=background-color:#5cb85c;";
+                        }    
+                    @endphp
+
+                        <tr id="row_{{$booking->id}}" {{$style}}>
                             <td>{{$booking->id}}</td>
                             <td>{{$booking->name}}</td>
                             <td>{{$booking->booking_date}}</td>

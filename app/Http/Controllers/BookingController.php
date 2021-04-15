@@ -116,8 +116,19 @@ class BookingController extends Controller
         return redirect()->route('booking.index');
     }
 
-    public function confirm()
+    #   Confirm booking
+    public function confirm(Request $request, Booking $booking)
     {
-        return 1;
+        $data = $request->all();
+
+        if (
+            Booking::where('id', $data["booking"])->update(['booking_confirmed' => true])
+        ) {
+            return response()->json(['status' => 1, 'message' => 'Booking approved', 'data_id' => $booking->id]);
+        }
+        return response()->json(['status' => 0, 'message' => 'Something went wrong', 'data_id' => $booking->id]);
+
     }
+
+    
 }

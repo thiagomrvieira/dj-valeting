@@ -84,9 +84,16 @@
             $.ajax({
                 type:'POST',
                 url:'/booking/confirm',
+                data: {booking: booking},
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success:function(data){
-                    alert(data);
+                   
+                    if (data.status == 0) {
+                        alert(data.message);
+                    } else {
+                        alert(data.message);
+                        $('#row_'+booking).css('background-color', '#5cb85c');
+                    }
                 }
             });
         });

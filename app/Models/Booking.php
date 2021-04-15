@@ -12,6 +12,6 @@ class Booking extends Model
     protected $table = 'bookings';
     
     protected $fillable = [
-        'name',	'booking_date',	'flexibility',	'vehicle_size',	'contact_number',	'email_address',
+        'id', 'name',	'booking_date',	'flexibility',	'vehicle_size',	'contact_number',	'email_address', 'booking_confirmed',
     ];
 }
